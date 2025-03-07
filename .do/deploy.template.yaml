@@ -1,0 +1,20 @@
+spec:
+  name: flask-do-deploy
+  services:
+    - name: flask-do-app
+      environment_slug: python
+      git:
+        branch: main
+        repo_clone_url: https://github.com/ajot/flask-do-deploy
+      build_command: pip install -r requirements.txt
+      run_command: gunicorn --worker-tmp-dir /dev/shm wsgi:app
+      http_port: 8080
+      health_check:
+        http_path: /
+      instance_size_slug: basic-xxs
+      routes:
+        - path: /
+      envs:
+        - key: FLASK_ENV
+          value: production
+          scope: RUN_TIME
