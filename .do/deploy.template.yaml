@@ -1,5 +1,6 @@
 spec:
   name: flask-do-deploy
+  region: nyc
   services:
     - name: flask-do-app
       environment_slug: python
